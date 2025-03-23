@@ -7,6 +7,8 @@ export default {
         "./resources/views/filament/**/*.blade.php",
         "./vendor/filament/**/*.blade.php",
         "./resources/views/components/**/*.blade.php",
+        "./vendor/awcodes/filament-table-repeater/resources/css/plugin.css",
+        "./vendor/awcodes/filament-table-repeater/resources/views/**/*.blade.php",
     ],
     theme: {
         extend: {

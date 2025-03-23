@@ -53,7 +53,12 @@ class EmployeeInformation extends Model
             $designation[] = $this->office->name;
         }
         return Attribute::make(
-            get: fn () => implode(' - ', $designation),
+            get: fn() => implode(' - ', $designation),
         );
+    }
+
+    public function designations()
+    {
+        return $this->hasMany(Designation::class);
     }
 }
