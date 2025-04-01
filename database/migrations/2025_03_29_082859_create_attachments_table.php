@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activity_design_signatory_groups', function (Blueprint $table) {
+        Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->integer('order');
-            $table->tinyInteger('status')->default(0);
-            $table->foreignId('activity_design_id')->constrained(indexName: 'activity_design_signatory_group_foreign')->cascadeOnDelete();
+            $table->morphs('attachable');
+            $table->string('file_name');
+            $table->text('description');
+            $table->string('path');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activity_design_signatory_groups');
+        Schema::dropIfExists('attachments');
     }
 };

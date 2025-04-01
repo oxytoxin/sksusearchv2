@@ -2,10 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Designation extends Model
 {
+
+    protected $with = [
+        'office',
+        'campus',
+        'position',
+    ];
+
+    protected $appends = [
+        'full_description'
+    ];
+
+    public function fullDesignation(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => implode(', ', [$this->position?->description, $this->office?->name, $this->campus?->name])
+        );
+    }
+
     public function office()
     {
         return $this->belongsTo(Office::class);

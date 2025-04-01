@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->date('start_date');
             $table->date('end_date');
+            $table->tinyInteger('status')->default(0);
             $table->decimal('total_amount', 12, 4)->default(0);
             $table->foreignId('fund_cluster_id')->nullable()->constrained();
+            $table->foreignId('requisitioner_id')->constrained('users');
             $table->timestamps();
         });
     }
