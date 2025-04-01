@@ -34,7 +34,8 @@ class SubmittedActivityDesignResource extends Resource
         return parent::getEloquentQuery()
             ->where(function ($query) {
                 $query
-                    ->whereNot('status', ActivityDesignStatus::DRAFT);
+                    ->whereNot('status', ActivityDesignStatus::DRAFT)
+                    ->where('requisitioner_id', Auth::id());
             });
     }
 
