@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ActivityDesignStatus;
 use App\Filament\Resources\SubmittedActivityDesignResource\Pages;
 use App\Filament\Resources\SubmittedActivityDesignResource\RelationManagers;
 use App\Filament\Traits\ActivityDesign\ActivityDesignCommons;
@@ -14,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class SubmittedActivityDesignResource extends Resource
 {
@@ -26,6 +28,16 @@ class SubmittedActivityDesignResource extends Resource
     protected static ?string $pluralLabel = 'Submitted';
 
     protected static ?string $navigationGroup = 'Activity Designs';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where(function ($query) {
+                $query
+                    ->whereRelation('signatories', 'signatory_id', Auth::id())
+                    ->whereNot('status', ActivityDesignStatus::DRAFT);
+            });
+    }
 
     public static function getRelations(): array
     {
