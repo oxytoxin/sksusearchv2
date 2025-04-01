@@ -34,7 +34,6 @@ class SubmittedActivityDesignResource extends Resource
         return parent::getEloquentQuery()
             ->where(function ($query) {
                 $query
-                    ->whereRelation('signatories', 'signatory_id', Auth::id())
                     ->whereNot('status', ActivityDesignStatus::DRAFT);
             });
     }
